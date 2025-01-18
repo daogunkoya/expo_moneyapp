@@ -9,7 +9,7 @@ export const onContinueAction = (user, activeSender, activeReceiver, navigation,
   const hasSender = activeSender !== null;
   const receiverIsSet = activeReceiver !== null;
 
-  if (userEmailverified || userIdentityverified) {
+  if (!userEmailverified || !userIdentityverified) {
       navigation.navigate("CompleteSetup", 
       { sender: activeSender, 
         isCustomer: isCustomer,

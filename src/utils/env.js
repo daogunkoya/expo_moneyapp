@@ -9,8 +9,8 @@ export const isAndroid = Platform.OS === "android";
 export const isDevelopment = process.env.NODE_ENV === "development";
 export const isMock = true;
 export const host = !isDevelopment || isAndroid ? liveHost : localHost;
-export const api_url =  "https://stage.monytransfer.com/v1/";
-//export const api_url = isAndroid ? "http://10.0.2.2/v1/" : "http://localhost/v1/";
+//export const api_url =  "https://stage.monytransfer.com/v1/";
+export const api_url = isAndroid ? "http://10.0.2.2/v1/" : "http://localhost/v1/";
  ///export const api_url = "https://8feb-2-31-14-223.ngrok-free.app/v1/";
 export const store_id = "2bda0c37-4eac-44e5-a014-6c029d76dc62";
 export const process_store_id = `process_store_id=${store_id}`

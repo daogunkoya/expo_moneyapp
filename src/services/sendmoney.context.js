@@ -122,6 +122,28 @@ export const SendMoneyContextProvider = ({ children }) => {
 
 
 
+  const uploadIdentification = async (formData) => {
+    setIsLoading(true);
+
+    console.log('formData sent')
+
+    try {
+      const results = await service.post(Endpoints.UPLOADIDENTIFICATION, formData);
+      const { data} = results;
+      console.log("results", data);
+
+      setError(null);
+      setIsLoading(false);
+
+    } catch (err) {
+      console.log("Fetching TransferBreakdown error", err);
+      setIsLoading(false);
+      setError(err);
+    }
+  };
+
+
+
   const resetTransaction  = (transaction) => {
     setNewTransaction(transaction)
     setTransferBreakdown({})
@@ -158,6 +180,7 @@ export const SendMoneyContextProvider = ({ children }) => {
         setActiveReceiver,
         updateSendMoneyCurrencyOrigin:setCurrencyOrigin,
         updateSendMoneyCurrencyDestination:setCurrencyDestination,
+        uploadIdentification
         
       }}
     >

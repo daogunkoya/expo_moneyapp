@@ -83,6 +83,7 @@ const endpoints = {
        
     },
     SENDMONEY:`${BASE}transactions`,
+    UPLOADIDENTIFICATION:`${BASE}documents/upload`,
     ADDRESSFINDER:address => `${BASE}address-finder?address=${address}`,
     TRANSFERBREAKDOWN: `${BASE}transactions/transfer/breakdown`,
 

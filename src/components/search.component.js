@@ -5,27 +5,20 @@ import { Button } from "react-native-paper";
 import { colors } from "../infrastructure/theme/colors";
 
 
+
 const SearchContainer = styled.View`
   padding: ${(props) => props.theme.space[1]};
   flex-direction: row;
-  justify-content: space-around;
-  color: colors.brand.primary;
-
-  
+  align-items: center; /* Ensure proper vertical alignment */
+  justify-content: space-between; /* Space between elements */
 `;
+
 const ActionButton = styled(Button).attrs({
   'color': colors.brand.primary,
   'background-color': 'transparent',
-  
 })`
-  padding: ${(props) => props.theme.space[0]};
-  margin-bottom:0;
-  margin-top:0;
-  margin-right: ${(props) => props.theme.space[4]};
- border-radius: ${(props) => props.theme.sizes[2]};
-  align-self: center;
-  
-  color: red;
+  margin-left: ${(props) => props.theme.space[4]};
+
 `;
 
 export const Search = ({buttonTitle, buttonIcon, navigateToScreen, onSearch, filterParam}) => {
@@ -37,7 +30,16 @@ export const Search = ({buttonTitle, buttonIcon, navigateToScreen, onSearch, fil
       <Searchbar
         placeholder="Search"
         value={searchKeyword}
-        style={{width:'100%',marginTop:0,marginBottom:0,marginLeft:12,borderRadius:0, borderWidth:0, backgroundColor:'white'}}
+        style={{
+          flex: 1, // Take up remaining space
+          marginTop: 0,
+          marginBottom: 0,
+          marginLeft: 12,
+          borderRadius: 0,
+          borderWidth: 0,
+          backgroundColor: 'white',
+        }}
+
           onChangeText={(text) => {
             setSearchKeyword(text)
             onSearch({...filterParam,search:text})

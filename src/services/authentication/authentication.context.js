@@ -199,7 +199,8 @@ export const AuthenticationContextProvider = props => {
      // navigate("TransactionList");
     } catch (error) {
       console.error("Error submitting update:", error);
-      Alert.alert("Error", "Failed to register user.");
+      //Alert.alert("Error", "Failed to register user.");
+      setIsLoading(false);
     }
   };
 

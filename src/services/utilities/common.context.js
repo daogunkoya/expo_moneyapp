@@ -61,7 +61,7 @@ export const CommonContextProvider = ({ children }) => {
       // setUserCurrencies(user)
       setDefaultCurrency(currencies)
 
-    console.log("fetchHome", JSON.stringify(fetchHome.currencies.data, null , 2));
+    //console.log("fetchHome", JSON.stringify(fetchHome.currencies.data, null , 2));
 
       setError(null);
       setIsLoading(false);
@@ -95,7 +95,7 @@ export const CommonContextProvider = ({ children }) => {
 
   const setDefaultCurrency = (currencyList) => {
    
-    console.log("currencyListHere", currencyList);
+   // console.log("currencyListHere", currencyList);
     currencyList.data?.find((item) => {
       if (item.currencyType === 'Destination' && item.currencyDefault == 1) {
         setDefaultDestinationCurrency(item);
@@ -175,7 +175,7 @@ export const CommonContextProvider = ({ children }) => {
       
     } catch (err) {
       const errorMessage = err.toString();
-         console.log("Loading fetchCurrencies error", err);
+        // console.log("Loading fetchCurrencies error", err);
     } finally {
       setIsLoading(false);
     }

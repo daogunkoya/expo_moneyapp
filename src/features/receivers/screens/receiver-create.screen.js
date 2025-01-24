@@ -51,7 +51,7 @@ export const ReceiverCreateScreen = ({navigation, route}) => {
     const handleRegister = () => {
       onReceiverRegister(newReceiverData);
       if(!error){
-        navigation.pop(1)  
+        navigation.pop(3)  
   };
     };
 

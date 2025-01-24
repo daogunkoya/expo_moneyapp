@@ -6,7 +6,7 @@ import { UserContext } from "../../../services/user/user.context";
 
 
 export const SendMoneyCompleteSetupScreen = ({ route, navigation }) => {
-  const { userEmailverified, userIdentityverified } = route.params;
+  const { user, sender, receiver, isCustomer, userEmailverified, userIdentityverified } = route?.params;
   const [checked, setChecked] = React.useState(false);
 
   const { onVerifyEmail , onVerifyIdentity} = useContext(UserContext);
@@ -59,7 +59,14 @@ export const SendMoneyCompleteSetupScreen = ({ route, navigation }) => {
         mode="contained"
         onPress={() => {
           if (isEmailVerified) {
-           navigation.navigate('VerifyIdentity');
+           navigation.navigate('VerifyIdentity', { 
+            user: user,
+            sender: sender,
+             receiver: receiver,
+              isCustomer: isCustomer,
+              userEmailverified: userEmailverified,
+               userIdentityverified: userIdentityverified
+             });
           } else {
             onVerifyEmail();
           

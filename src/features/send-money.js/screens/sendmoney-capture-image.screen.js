@@ -4,7 +4,9 @@ import { Button, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { SendMoneyContext } from "../../../services/sendmoney.context";
 
-export const SendMoneyCaptureImagesScreen = () => {
+export const SendMoneyCaptureImagesScreen = ({ navigation , route}) => {
+
+    const { user, sender, receiver, isCustomer, userEmailverified, userIdentityverified } = route.params;
 
     const { uploadIdentification } = useContext(SendMoneyContext);
   const [idImage, setIdImage] = useState(null);
@@ -53,8 +55,15 @@ export const SendMoneyCaptureImagesScreen = () => {
       name: 'selfie_image.jpg',
       type: 'image/jpeg',
     });
-
-    uploadIdentification(formData);
+    const otherData = {
+      user: user,
+      sender: sender,
+      receiver: receiver,
+      isCustomer: isCustomer,
+      userEmailverified: userEmailverified,
+      userIdentityverified: userIdentityverified
+    }
+    uploadIdentification(formData, otherData);
 
     // try {
     //   const response = await fetch('http://localhost/v1/documents/upload', {

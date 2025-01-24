@@ -32,11 +32,11 @@ export const SendMoneyAmountCalculatorScreen= ({ route, navigation }) => {
     isLoading:fetchHomeLoadingReady, userIdentityverified,userEmailverified } = useContext(CommonContext);
   const { user } = useContext(AuthenticationContext);
   
-    console.log('userEmailverified',userEmailverified,'useridentityverified',userIdentityverified)
+    //console.log('userEmailverified',userEmailverified,'useridentityverified',userIdentityverified)
    // console.log('user', JSON.stringify(currentUser, null, 2))
   //  console.log('default destination currency', JSON.stringify(defaultDestinationCurrency, null, 2))
   //console.log("route param", JSON.stringify(route?.params, null, 2))
-  const { fetchTransferBreakdown , sendMoneyConversionType , transferBreakdown,activeSender,setActiveSender, activeReceiver, setActiveReceiver, updateSendMoneyCurrencyOrigin, updateSendMoneyCurrencyDestination} = useContext(SendMoneyContext)
+  const { fetchTransferBreakdown , sendMoneyConversionType , transferBreakdown,activeSender,setActiveSender, activeReceiver, setActiveReceiver, updateSendMoneyCurrencyOrigin, updateSendMoneyCurrencyDestination, setUploadUserData} = useContext(SendMoneyContext)
   const {amountSent = "", localAmount = "", exchangeRate = 0.00, totalAmount = 0.00, totalCommission = 0.00} = transferBreakdown;
   
   // const [originCurrency, setOriginCurrency] = useState(currentUser?.userCurrency['originCurrency'] || defaultOriginCurrency);
@@ -89,9 +89,12 @@ const onAmountChange = (value, type, setFieldValue, formikValues) => {
 };
 
   const onContinue = () => 
+    {
+    //setUploadUserData({user,sender:activeSender,receiver:activeReceiver,userIdentityverified:userIdentityverified,userEmailverified:userEmailverified});
+
    onContinueAction(user, activeSender, activeReceiver, navigation, userEmailverified , userIdentityverified);
   
- 
+    }
   // useEffect(() => {
   //   if(receiveAmountInput !== receiveAmountApi)
   //     {

@@ -4,12 +4,13 @@ import service from "../utils/request";
 import { useNavigation } from '@react-navigation/native';
 import { CommonContext } from "./utilities/common.context";
 import { TransactionsContext } from "./transactions/transactions.context";
+import { onContinueAction } from "../../src/features/send-money.js/utility";
 
 
 
 import { navigate } from "../utils/navigationRef";
 import endpoints from "../utils/apis";
-import { constant } from "lodash";
+import { constant, result, set } from "lodash";
 
 export const SendMoneyContext = createContext();
 
@@ -31,6 +32,7 @@ export const SendMoneyContextProvider = ({ children }) => {
   const [currencyDestination, setCurrencyDestination] = useState(null);
   const [activeSender, setActiveSender] = useState(null);
   const [activeReceiver, setActiveReceiver] = useState(null);
+  const [uploadUserData, setUploadUserData] = useState(null);
 
   const limit = 5;
 
@@ -122,21 +124,26 @@ export const SendMoneyContextProvider = ({ children }) => {
 
 
 
-  const uploadIdentification = async (formData) => {
+  const uploadIdentification = async (formData, otherData) => {
     setIsLoading(true);
 
-    console.log('formData sent')
+      console.log(' other Data' , otherData);
+   // console.log('formData sent')
 
     try {
       const results = await service.post(Endpoints.UPLOADIDENTIFICATION, formData);
-      const { data} = results;
-      console.log("results", data);
+      //const { data} = results;
+      console.log("results", results);
 
       setError(null);
       setIsLoading(false);
+     // navigation.navigate('Transaction',{screen:"TransactionList"});
+     const {user , sender, receiver, isCustomer, userIdentityverified, userEmailverified} = otherData 
+     
+     onContinueAction(user, sender, receiver, navigation, userEmailverified , true);
 
     } catch (err) {
-      console.log("Fetching TransferBreakdown error", err);
+      console.log("Form data error", err);
       setIsLoading(false);
       setError(err);
     }
@@ -180,7 +187,8 @@ export const SendMoneyContextProvider = ({ children }) => {
         setActiveReceiver,
         updateSendMoneyCurrencyOrigin:setCurrencyOrigin,
         updateSendMoneyCurrencyDestination:setCurrencyDestination,
-        uploadIdentification
+        uploadIdentification,
+        setUploadUserData,
         
       }}
     >

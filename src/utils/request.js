@@ -31,7 +31,7 @@ instance.interceptors.request.use(
      config.params = config.params || {};
      config.params.process_store_id = STORE_ID;
 
-     console.log('Axios Request Config:', JSON.stringify(config, null, 2)); // Log config
+     //console.log('Axios Request Config:', JSON.stringify(config, null, 2)); // Log config
 
     return config;
   },
@@ -44,6 +44,9 @@ instance.interceptors.response.use(
   res => {
     const { data, status } = res;
 
+   // console.log('Axios Response Data:', JSON.stringify(data, null, 2)); 
+   //console.log('Axios Response Status:', status);
+
     if (status === undefined) {
       return Promise.reject(new Error(''));
     }
@@ -51,7 +54,6 @@ instance.interceptors.response.use(
   },
   error => {
     const { data, status } = error?.response || {};
-
     if (error.code === 'ECONNABORTED' && error.message.includes('timeout')) {
       if (data?.message) {
         Alert.alert('Error', data.message);
@@ -68,9 +70,25 @@ instance.interceptors.response.use(
         }
         return Promise.reject(new Error(data.message || 'Error'));
       case 422:
-        const errorMessage = [].concat(...Object.values(data.errors)).join('\n');
-        Alert.alert('Unprocessable Entity', errorMessage);
-        return Promise.reject(new Error(errorMessage || 'Unprocessable Entity'));
+          // Normalize the data structure
+          const errorData = data?.errors || data?.data?.errors;
+
+          if (!errorData) {
+              Alert.alert('Unprocessable Entity', 'An unknown error occurred.');
+              return Promise.reject(new Error('Unprocessable Entity'));
+          }
+
+          // Flatten error messages and join with newlines
+          const errorMessage = Object.values(errorData)
+              .flat() // Flatten nested arrays
+              .join('\n'); // Combine into a single string
+
+          Alert.alert('Unprocessable Entity', errorMessage);
+          return Promise.reject(new Error(errorMessage));
+
+        // const errorMessage = [].concat(...Object.values(data.errors)).join('\n');
+        // Alert.alert('Unprocessable Entity', errorMessage);
+        // return Promise.reject(new Error(errorMessage || 'Unprocessable Entity'));
       case 401:
         Alert.alert('Unauthorized', 'Session expired. Please log in again.');
         // Handle logout or session expiration logic here

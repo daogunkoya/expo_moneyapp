@@ -6,7 +6,7 @@ import { DateInput } from '../../components/date-input.component';
 import { TextInput, InputContainer, InputContentwrapper } from "./input-create.styles";
 import { TextInputComponent } from '../input/text-input.component';
 
-export const BioInputComponent = ({ values, errors, touched, handleChange, handleBlur }) => {
+export const BioInputComponent = ({ values, errors, touched, handleChange, handleBlur, createUser = false }) => {
   return (
     <View>
       <InputContainer>
@@ -46,7 +46,7 @@ export const BioInputComponent = ({ values, errors, touched, handleChange, handl
             style={{ borderBottomWidth: 7, borderBottomColor: "#D3D3D3", backgroundColor:"transparent" }}
           />
           </Spacer>
-        {!values.email && 
+        {(!values.email || !createUser) &&
           <Spacer size="large">
             <TextInputComponent
               label="E-mail"

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button, RadioButton, Card } from 'react-native-paper';
 
-export const SendMoneyVerifyIdentityScreen = ({ navigation }) => {
+export const SendMoneyVerifyIdentityScreen = ({ navigation, route }) => {
+  const { user, sender, receiver, isCustomer, userEmailverified, userIdentityverified } = route?.params;
   const [selectedIdType, setSelectedIdType] = useState('');
 
   const handleContinue = () => {
@@ -11,7 +12,15 @@ export const SendMoneyVerifyIdentityScreen = ({ navigation }) => {
       return;
     }
     // Navigate to camera screen or handle camera logic
-    navigation.navigate('CaptureImages', { idType: selectedIdType });
+    navigation.navigate('CaptureImages', {
+       idType: selectedIdType,
+       user: user,
+       sender: sender,
+       receiver: receiver,
+       isCustomer: isCustomer,
+       userIdentityverified: userIdentityverified,
+       userEmailverified: userEmailverified
+       });
   };
 
   return (

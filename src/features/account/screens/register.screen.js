@@ -91,6 +91,7 @@ export const RegisterScreen = ({  navigation }) => {
                     touched={touched}
                     handleChange={handleChange}
                     handleBlur={handleBlur}
+                    createUser = {true}
                   />}
                   
                   {page === 2 &&

@@ -11,7 +11,9 @@ export const onContinueAction = (user, activeSender, activeReceiver, navigation,
 
   if (!userEmailverified || !userIdentityverified) {
       navigation.navigate("CompleteSetup", 
-      { sender: activeSender, 
+      { user: user,
+        sender: activeSender, 
+        receiver: activeReceiver,  
         isCustomer: isCustomer,
          userIdentityverified: userIdentityverified,
           userEmailverified: userEmailverified });

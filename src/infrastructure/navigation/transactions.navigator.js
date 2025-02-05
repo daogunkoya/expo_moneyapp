@@ -13,16 +13,19 @@ const Stack = createStackNavigator();
 
 export const TransactionsNavigator = () => (
   <Stack.Navigator>
-    <Stack.Screen
+      <Stack.Screen
       name="TransactionList"
       component={TransactionsScreen}
-      options={({ navigation }) => ({
-        title: "Transaction History",
+      options={({ navigation, route }) => ({
+        title: route?.params?.member?.userName
+          ? `${route.params.member.userName} Transaction History`
+          : 'Transaction History',
         headerLeft: () => (
           <IconButton icon="arrow-left" onPress={() => navigation.goBack()} />
         ),
       })}
     />
+
 
     <Stack.Screen
       name="TransactionDetail"

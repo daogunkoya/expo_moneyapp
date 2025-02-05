@@ -54,9 +54,23 @@ export const MembersScreen = ({ navigation }) => {
             navigateToMemberList={() => navigateToList(item)}
             navigateToTransactionList={() =>{
               navigation.reset({
-              index: 0,
-              routes: [{ name: 'Transaction', params: { screen: 'TransactionList' , member: item, type: 1} }],
-            });
+                index: 0,
+                routes: [
+                  {
+                    name: 'Transaction',
+                    state: {
+                      routes: [
+                        { 
+                          name: 'TransactionList', 
+                          params: { member: item, type: 1 } 
+                        }
+                      ]
+                    }
+                  }
+                ],
+              });
+              
+              
             }}
             navigateItemDetail={() =>navigation.navigate("memberDetail", { member: user })}
             navigateToUpdate={(sender) => navigation.navigate("memberUpdate", { member: item })}

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "moneyapp_expo",
-    "slug": "moneyapp_expo",
+    "slug": "moneyapp_react_native-2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,19 +27,24 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.danielbillion.moneyapp_react_native2"
+      "package": "com.danielbillion.moneyapp_expo",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-secure-store",
-        "expo-camera"
+      "expo-camera"
     ],
     "extra": {
       "eas": {
         "projectId": "c931a4ad-1e79-4014-94d5-fd18f74bbd56"
       }
-    }
+    },
+    "owner": "danielbillion"
   }
 }

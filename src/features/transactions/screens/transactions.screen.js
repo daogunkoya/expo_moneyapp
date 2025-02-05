@@ -1,4 +1,4 @@
-import React, { useContext,useState,useCallback } from "react";
+import React, { useContext,useState,useCallback, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { FadeInView } from "../../../components/animations/fade.animation";
@@ -9,14 +9,17 @@ import { userAsSender } from "../../../components/utilities.component";
 import { FilterDateOption, TransactionFilterStatusOption , FilterCurrenciesOption} from "../../../components/filter/constants";
 import { TransactionInfoCard } from "../components/transaction-info-card.component";
 import { TransactionsContext } from "../../../services/transactions/transactions.context";
+import { use } from "react";
 
-export const TransactionsScreen = ({ navigation }) => {
+export const TransactionsScreen = ({ navigation, route }) => {
 
   const [transactionFilters, setTransactionFilters ] = useState({});
   
   const buttonFilterValues = {"status":TransactionFilterStatusOption, "date": FilterDateOption, "currencies": FilterCurrenciesOption}
   const filterOptions = ['date', 'status', 'currency'];
   
+  const { screen, member, type } = route.params || {};
+  console.log(screen, member?.userId, type);
 
   const { isLoading,transactions, retrieveTransactions, hasError , totalTransactionCount,
     LoadMoreTransactionData,searchWord, onRefresh, refreshing } = useContext(TransactionsContext);
@@ -55,7 +58,7 @@ export const TransactionsScreen = ({ navigation }) => {
     
   
     if (selectedValue === "date-range") {
-      setToggleFilterDateOption(!toggleFilterDateOption);
+      //setToggleFilterDateOption(!toggleFilterDateOption);
       setToggleFilterDateOption(!toggleFilterDateOption);
     } else {
           const filterObj = selectedValue?{ ...filters, [selectedFilter]: selectedValue } : {};
@@ -71,6 +74,13 @@ export const TransactionsScreen = ({ navigation }) => {
   
     setToggleFilterOptions(false);
   };
+
+  useEffect(() => {
+    if(route?.params?.member?.userId){
+      retrieveTransactions(false, {user_id: route?.params?.member?.userId});
+    }
+   
+  }, [route?.params?.member?.userId]);
 
 
   return (
